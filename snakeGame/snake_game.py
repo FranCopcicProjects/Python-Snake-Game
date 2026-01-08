@@ -33,13 +33,17 @@ segments = []
 
 #Functions
 def go_up():
-    head.direction = "up"
+    if head.direction != "down":
+        head.direction = "up"
 def go_down():
-    head.direction = "down"
+    if head.direction != "up":
+        head.direction = "down"
 def go_left():
-    head.direction = "left"
+    if head.direction != "right":
+        head.direction = "left"
 def go_right():
-    head.direction = "right"
+    if head.direction != "left":
+        head.direction = "right"
 
 def reset_game():
     time.sleep(1)
@@ -118,6 +122,12 @@ while True:
         prev_x, prev_y = cur_x, cur_y
 
     move()
+
+    for segment in segments:
+        if segment.distance(head) < 20:
+            time.sleep(1)
+            reset_game()
+
     time.sleep(delay)
 
 window.mainloop()
