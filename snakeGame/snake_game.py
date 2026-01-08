@@ -3,6 +3,10 @@ import time
 import random
 
 delay = 0.1
+#Score
+score = 0
+high_score = 0
+
 
 #Set screen
 window = turtle.Screen()
@@ -31,6 +35,17 @@ food.goto(0, 100)
 #Segments of snakes body
 segments = []
 
+#Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("SCORE: 0  HIGH SCORE: 0",
+          align = "center", font = ("Courier", 24, "normal"))
+
 #Functions
 def go_up():
     if head.direction != "down":
@@ -50,7 +65,14 @@ def reset_game():
     for seg in segments:
         seg.hideturtle()
     segments.clear()
+    #Reset score
+    global score
+    score = 0
+    pen.clear()
+    pen.write("SCORE: {}  HIGH SCORE: {}".format(score, high_score),
+              align="center", font=("Courier", 24, "normal"))
     head.goto(0, 0)
+    food.goto(0, 100)
     head.direction = "stop"
 
 def move():
@@ -99,6 +121,15 @@ while True:
         new_segment.color("grey")
         new_segment.penup()
         segments.append(new_segment)
+
+        #Increase the score
+        score += 10
+        if score > high_score:
+           high_score = score
+
+        pen.clear()
+        pen.write("SCORE: {}  HIGH SCORE: {}". format(score, high_score),
+                  align = "center", font = ("Courier", 24, "normal"))
 
     # #Move segments (from end to front)
     # for i in range(len(segments) - 1, 0, -1):
