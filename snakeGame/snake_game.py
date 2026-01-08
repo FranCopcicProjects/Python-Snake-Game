@@ -61,7 +61,15 @@ def go_right():
         head.direction = "right"
 
 def reset_game():
+    #Show that the new game is starting
+    pen.goto(0, 0)
+    old_color = pen.pencolor()
+    pen.color("red")
+    pen.write("Starting new game...",
+              align="center", font=("Courier", 30, "normal"))
+    window.update()
     time.sleep(1)
+
     for seg in segments:
         seg.hideturtle()
     segments.clear()
@@ -69,6 +77,8 @@ def reset_game():
     global score
     score = 0
     pen.clear()
+    pen.goto(0, 260)
+    pen.color(old_color)
     pen.write("SCORE: {}  HIGH SCORE: {}".format(score, high_score),
               align="center", font=("Courier", 24, "normal"))
     head.goto(0, 0)
@@ -160,5 +170,3 @@ while True:
             reset_game()
 
     time.sleep(delay)
-
-window.mainloop()
